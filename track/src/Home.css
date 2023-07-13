@@ -1,0 +1,19 @@
+/* .form-link{
+    margin: 50px;
+}
+div{
+    color: "white";
+    display: "flex";
+    flex-direction: "column";
+    align-Items: "center";
+}
+.form-control{
+    width: 400px;
+} */
+/* *{
+    border: 1px solid red;
+} */
+.form-link{
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
