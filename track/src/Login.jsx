@@ -1,17 +1,33 @@
 import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  //   const history = useHistory();
   const navigate = useNavigate();
+
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (isValidEmail(e.target.value)) {
+      toast.error("Invalid email entered");
+      return;
+    }
+    if (email.length === 0) {
+      toast.error("Please enter email");
+      return;
+    }
+    if (pass.length === 0) {
+      toast.error("Please enter password");
+      return;
+    }
     console.log(email);
-    // history.push("./Home");
     navigate("/home");
   };
 
@@ -39,6 +55,8 @@ export const Login = () => {
         />
         <button type="submit">Log In</button>
       </form>
+      <ToastContainer />
+
       {/* <button
         className="link-btn"
         onClick={() => props.onFormSwitch("register")}
