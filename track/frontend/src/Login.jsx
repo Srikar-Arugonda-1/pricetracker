@@ -39,21 +39,21 @@ export const Login = () => {
       if (response.data.success) {
         navigate("/home");
       } else {
-        if (response.data.message === "Email not found") {
-          toast.error("Email not registered");
+        if (response.data.message === "Email not registered,try signing up first") {
+          toast.error("Email not registered,try signing up first");
           return;
         }
         if (response.data.message === "Incorrect password") {
           toast.error("Incorrect password");
           return;
         } else {
-          toast.error("An error occurred");
+          toast.error("An error occurred1");
           return;
         }
       }
     } catch (error) {
       console.error(error);
-      toast.error("An error occurred");
+      toast.error("An error occurred2");
     }
   };
 
@@ -71,6 +71,29 @@ export const Login = () => {
     if (pass.length === 0) {
       toast.error("Please enter password");
       return;
+    }
+
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/api/signup", {
+        email,
+        pass,
+      });
+      if (response.data.success) {
+       toast.success("Account created.Proceed logging in")
+      } 
+      else {
+        if (response.data.message === "An account with that email already exists.") {
+          toast.error("An account with that email already exists.");
+          return;
+        }
+        else {
+          toast.error("An error occurred");
+          return;
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred");
     }
   };
 
