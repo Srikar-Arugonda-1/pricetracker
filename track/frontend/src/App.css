@@ -49,10 +49,16 @@ button {
   border-radius: 20px !important;
   cursor: pointer;
   color: #7439db;
-  margin: 20px 0px 0px 0px !important;
+  margin: 30px 30px 0px 30px !important;
   width: 100px;
 }
 
+.butn-cont{
+    display: flex;
+    flex-direction: row;
+    justify-content:  center;
+    /* margin-right: 10px; */
+}
 .butn{
   margin-top: 1rem;
   border: none;
