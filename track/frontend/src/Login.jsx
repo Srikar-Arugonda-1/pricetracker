@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-export const Login = () => {
+export const Login = ({ loggedIn, onLogin }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [message, setMessage] = useState("");
@@ -37,9 +37,12 @@ export const Login = () => {
         pass,
       });
       if (response.data.success) {
+        onLogin(email);
         navigate("/home");
       } else {
-        if (response.data.message === "Email not registered,try signing up first") {
+        if (
+          response.data.message === "Email not registered,try signing up first"
+        ) {
           toast.error("Email not registered,try signing up first");
           return;
         }
@@ -72,21 +75,20 @@ export const Login = () => {
       toast.error("Please enter password");
       return;
     }
-
     try {
       const response = await axios.post("http://127.0.0.1:5000/api/signup", {
         email,
         pass,
       });
       if (response.data.success) {
-       toast.success("Account created.Proceed logging in")
-      } 
-      else {
-        if (response.data.message === "An account with that email already exists.") {
+        toast.success("Account created.Proceed logging in");
+      } else {
+        if (
+          response.data.message === "An account with that email already exists."
+        ) {
           toast.error("An account with that email already exists.");
           return;
-        }
-        else {
+        } else {
           toast.error("An error occurred");
           return;
         }

@@ -15,6 +15,13 @@ function App() {
     { sno: "3", productname: "pen", currentprice: "100", limit: "90" },
   ]);
   const [rowToEdit, setRowToEdit] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const handleLogin = (email) => {
+    setEmail(email);
+    setLoggedIn(true);
+  };
 
   const handleEditRow = (idx) => {
     setRowToEdit(idx);
@@ -46,7 +53,10 @@ function App() {
       {/* <Login /> */}
       {/* <Home /> */}
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route
+          path="/"
+          element={<Login loggedIn={loggedIn} onLogin={handleLogin} />}
+        />
         <Route
           path="/home"
           element={
@@ -54,6 +64,8 @@ function App() {
               rows={rows}
               delRow={handleDeleteRow}
               editRow={handleEditRow}
+              loggedIn={loggedIn}
+              email={email}
             />
           }
         />

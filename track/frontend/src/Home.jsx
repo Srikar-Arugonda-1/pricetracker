@@ -2,10 +2,12 @@ import { useState } from "react";
 import { BsFillTrash3Fill, BsFillPencilFill } from "react-icons/bs";
 import "./Home.css";
 import { Icons } from "react-toastify";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const Home = ({ rows, delRow, editRow }) => {
+const Home = ({ rows, delRow, editRow, loggedIn, email }) => {
   const [link, setLink] = useState("");
   const [price, setPrice] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,7 +20,9 @@ const Home = ({ rows, delRow, editRow }) => {
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
   };
-
+  if (!loggedIn) {
+    navigate("/");
+  }
   return (
     <div className="home-cont">
       <h1>Paste link here to add it to your Wishlist</h1>
