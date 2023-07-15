@@ -50,13 +50,13 @@ export const Login = ({ loggedIn, onLogin }) => {
           toast.error("Incorrect password");
           return;
         } else {
-          toast.error("An error occurred1");
+          toast.error("An error occurred");
           return;
         }
       }
     } catch (error) {
       console.error(error);
-      toast.error("An error occurred2");
+      toast.error("An error occurred");
     }
   };
 

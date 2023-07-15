@@ -3,15 +3,34 @@ import { BsFillTrash3Fill, BsFillPencilFill } from "react-icons/bs";
 import "./Home.css";
 import { Icons } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 const Home = ({ rows, delRow, editRow, loggedIn, email }) => {
   const [link, setLink] = useState("");
   const [price, setPrice] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log("Submitted link:", link);
+    console.log("i am batman")
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/api/addlist", {link,price,email,});
+      console.log("i am ironman")
+      if (response.data.success)
+        {console.log("i am spiderman")
+          toast.success("Updated wishlist")
+      }
+      else{toast.error("error")}
+
+    }catch (error) {
+      console.error(error);
+      toast.error("An error occurred");
+    }
+  
   };
 
   const handleLinkChange = (event) => {
@@ -98,8 +117,10 @@ const Home = ({ rows, delRow, editRow, loggedIn, email }) => {
             })}
           </tbody>
         </table>
+        <ToastContainer />
       </div>
     </div>
+    
   );
 };
 
