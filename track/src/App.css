@@ -3,51 +3,79 @@
 } */
 .App {
     text-align: center;
+    flex-direction: column;
     display: flex;
     min-height: 100vh;
     align-items: center;
     justify-content: center;
+    /* color: linears-gradient(to right, #fc5c7d, #6a82fb); */
     color: white;
     background-image: linear-gradient(to right, #fc5c7d, #6a82fb);
 
 }
   
-  .auth-form-container, .login-form, .register-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  @media screen and (min-width: 600px) {
-    .auth-form-container {
-      padding: 5rem;
-      border: 2px solid white;
-      border-radius: 10px;
-      margin: 0.5rem;
-    }
-  }
-  
-  label {
-    text-align: left;
-    padding: 0.25rem 0;
-    font-size: large;
-  }
-  
-  input {
-    margin: 0.5rem 0;
-    padding: 1rem;
-    border: none;
-    width: 400px;
+.auth-form-container, .login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-form-container {
+    padding: 5rem;
+    border: 2px solid white;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin: 0.5rem;
   }
-  
-  button {
-    border: none;
-    background-color: rgb(255, 255, 255);
-    border-radius: 20px !important;
-    cursor: pointer;
-    color: #7439db;
-    margin: 20px 0px 0px 0px !important;
-    width: 100px;
-  }
-  
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+  font-size: large;
+}
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  width: 400px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  border: none;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px !important;
+  cursor: pointer;
+  color: #7439db;
+  margin: 20px 0px 0px 0px !important;
+  width: 100px;
+}
+
+.butn{
+  margin-top: 1rem;
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0px 5px 5px #3f3838;
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.form-group input,
+.form-group textarea,
+.form-group select{
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    font-size: 1rem;
+    width: 350px;
+}
+
+.form-group label{
+    margin-bottom: 0.2rem;
+}

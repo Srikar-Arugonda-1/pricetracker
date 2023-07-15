@@ -1,0 +1,44 @@
+/* .form-link{
+    margin: 50px;
+}
+div{
+    color: "white";
+    display: "flex";
+    flex-direction: "column";
+    align-Items: "center";
+}
+.form-control{
+    width: 400px;
+} */
+/* *{
+    border: 1px solid red;
+} */
+.form-link{
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+.price-table{
+    width: 400px;
+    border-Collapse: collapse;
+    margin: 20px;
+}
+.head-row {
+    border: 2px solid white ;
+    padding: 10px 80px 10px ;
+    font-size: large;
+}
+.sno{
+    padding: 10px 20px 10px ;
+}
+.prod{
+    padding: 10px 150px 10px ;
+}
+.price{
+    padding: 10px 40px 10px ;
+}
+.limit{
+    padding: 10px 40px 10px ;
+}
+.action{
+    padding: 10px 20px 10px ;
+}

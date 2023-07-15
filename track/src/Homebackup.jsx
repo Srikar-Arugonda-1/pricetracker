@@ -3,7 +3,7 @@ import { BsFillTrash3Fill, BsFillPencilFill } from "react-icons/bs";
 import "./Home.css";
 import { Icons } from "react-toastify";
 
-const Home = ({ rows, delRow, editRow }) => {
+const Home = () => {
   const [link, setLink] = useState("");
   const [price, setPrice] = useState("");
 
@@ -60,41 +60,29 @@ const Home = ({ rows, delRow, editRow }) => {
       </form>
 
       <h2>Wishlist products</h2>
-      <div className="table-wrap">
-        <table className="price-table">
-          <thead>
-            <tr>
-              <th className="">S.no</th>
-              <th className="expand">Product Name</th>
-              <th className="">Current Price</th>
-              <th className="">Limit</th>
-              <th className="">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{row.sno}</td>
-                  <td>{row.productname}</td>
-                  <td>{row.currentprice}</td>
-                  <td>{row.limit}</td>
-                  <td className="action">
-                    <BsFillTrash3Fill
-                      className="btn-del"
-                      onClick={() => delRow(idx)}
-                    />
-                    <BsFillPencilFill
-                      className="btn-edit"
-                      onClick={() => editRow(idx)}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <table className="price-table">
+        <thead>
+          <tr>
+            <th className="head-row sno">S.no</th>
+            <th className="head-row prod">Product Name</th>
+            <th className="head-row price">Current Price</th>
+            <th className="head-row limit">Limit</th>
+            <th className="head-row action">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="head-row sno"></td>
+            <td className="head-row prod"></td>
+            <td className="head-row price"></td>
+            <td className="head-row limit"></td>
+            <td className="head-row action">
+              <BsFillTrash3Fill />
+              <BsFillPencilFill />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
