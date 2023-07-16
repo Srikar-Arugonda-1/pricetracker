@@ -6,8 +6,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-
+import React, {  useEffect } from "react";
 
 const Home = ({ rows, delRow, editRow, loggedIn, email }) => {
   const [link, setLink] = useState("");
@@ -16,12 +15,10 @@ const Home = ({ rows, delRow, editRow, loggedIn, email }) => {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log("i am batman")
     try {
       const response = await axios.post("http://127.0.0.1:5000/api/addlist", {link,price,email,});
-      console.log("i am ironman")
       if (response.data.success)
-        {console.log("i am spiderman")
+        {
           toast.success("Updated wishlist")
       }
       else{toast.error("error")}
@@ -30,6 +27,8 @@ const Home = ({ rows, delRow, editRow, loggedIn, email }) => {
       console.error(error);
       toast.error("An error occurred");
     }
+    setLink("");
+    setPrice("");
   
   };
 
@@ -39,9 +38,11 @@ const Home = ({ rows, delRow, editRow, loggedIn, email }) => {
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
   };
-  if (!loggedIn) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="home-cont">
       <h1>Paste link here to add it to your Wishlist</h1>

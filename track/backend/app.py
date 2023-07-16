@@ -102,6 +102,91 @@ def addlist():
             return jsonify({"success": True, "message": "Updated wishlist"})
     except Exception as e:
         return jsonify({"success": False, "message": "An error occurred"})
+    
+    
+@app.route('/api/editprice', methods=['POST'])
+def editprice():
+    data = request.get_json()
+    link = data.get('link')
+    price = data.get('newprice')
+    email = data.get('email')
+    asin = extract_asin(link)
+
+    try:
+        with connection.cursor() as cursor:
+            query = "SELECT s_no FROM users WHERE email=%s"
+            cursor.execute(query, email)
+            user = cursor.fetchone()
+            if user is not None:
+                s_no = user['s_no']
+            else:
+                return jsonify({"success": False, "message": "An error occurred"})
+                
+    except Exception as e:
+        return jsonify({"success": False, "message": "An error occurred"})
+    
+    try:
+        with connection.cursor() as cursor:
+            query = "UPDATE bridge SET price_limit = %s WHERE s_no = %s and asin = %s;"
+            cursor.execute(query, (price,s_no,asin))
+            connection.commit()
+            return jsonify({"success": True, "message": "Updated wishlist"})
+    except Exception as e:
+        return jsonify({"success": False, "message": "An error occurred"})
+    
+@app.route('/api/delpdt', methods=['POST'])
+def delpdt():
+    data = request.get_json()
+    link = data.get('link')
+    email = data.get('email')
+    asin = extract_asin(link)
+
+    try:
+        with connection.cursor() as cursor:
+            query = "SELECT s_no FROM users WHERE email=%s"
+            cursor.execute(query, email)
+            user = cursor.fetchone()
+            if user is not None:
+                s_no = user['s_no']
+            else:
+                return jsonify({"success": False, "message": "An error occurred"})
+                
+    except Exception as e:
+        return jsonify({"success": False, "message": "An error occurred"})
+    
+    try:
+        with connection.cursor() as cursor:
+            query = "DELETE FROM bridge WHERE s_no = %s and asin = %s;"
+            cursor.execute(query, (s_no,asin))
+            connection.commit()
+            return jsonify({"success": True, "message": "Deleted Product from wishlist"})
+    except Exception as e:
+        return jsonify({"success": False, "message": "An error occurred"})
+
+
+@app.route('/home', methods=['POST'])
+def get_data_from_mysql():
+    email = request.json['email'] 
+    try:
+        with connection.cursor() as cursor:
+            query = "SELECT p.name, p.pricenow,p.pdtlink b.price_limit FROM products AS p JOIN bridge AS b ON p.ASIN = b.asin JOIN users AS u ON b.upk = u.s_no WHERE u.email = %s;"
+            cursor.execute(query, email)
+            rows = cursor.fetchall()
+            data = []
+            for row in rows:
+                data.append({
+                    'name': row[0],
+                    'pricenow': row[1],
+                    'pdtlink' : row[2],
+                    'pricelimit': row[3]
+                })
+            cursor.close()
+            connection.close()
+
+            return jsonify(data)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run()
